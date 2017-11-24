@@ -12,3 +12,5 @@ If the user longclicks an item the item can be deleted.
 ![alt text](https://github.com/suitendaal/SvenUitendaalpset4/blob/master/doc/Screenshot_20171124-105855.png)
 ![alt text](https://github.com/suitendaal/SvenUitendaalpset4/blob/master/doc/Screenshot_20171124-105904.png)
 ![alt text](https://github.com/suitendaal/SvenUitendaalpset4/blob/master/doc/Screenshot_20171124-105917.png)
+
+[![BCH compliance](https://bettercodehub.com/edge/badge/suitendaal/SvenUitendaalpset4?branch=master)](https://bettercodehub.com/)
