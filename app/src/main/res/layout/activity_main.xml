@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10"
+                android:ems="18"
                 android:hint="Item"
                 android:inputType="textPersonName" />
 
@@ -49,8 +49,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add"
-                android:background="@android:color/transparent"
+                android:background="@drawable/addcircle"
+                android:backgroundTint="@color/colorAccent"
                 android:textColor="@color/colorAccent"/>
         </LinearLayout>
     </RelativeLayout>
@@ -63,13 +63,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <SeekBar
                 android:id="@+id/seekBar"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="20sp"
-                android:layout_marginTop="40sp" />
+                android:layout_marginTop="20sp" />
+
+            <Button
+                android:id="@+id/button"
+                android:onClick="buttonClicked"
+                android:layout_marginTop="10dp"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/extra_menu"
+                android:backgroundTint="@color/colorExtraButton"/>
+
         </LinearLayout>
 
     </RelativeLayout>

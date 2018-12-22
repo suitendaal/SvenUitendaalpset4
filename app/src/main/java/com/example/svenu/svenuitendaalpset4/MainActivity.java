@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private void setColors() {
         editText.setBackgroundTintList(ColorStateList.valueOf(textColor));
         addButton.setTextColor(ColorStateList.valueOf(textColor));
+        addButton.setBackgroundTintList(ColorStateList.valueOf(textColor));
         seekBar.setProgressTintList(ColorStateList.valueOf(textColor));
         seekBar.setThumbTintList(ColorStateList.valueOf(textColor));
     }
@@ -72,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void apology(String apologyWord) {
         Toast.makeText(this, apologyWord, Toast.LENGTH_SHORT).show();
+    }
+
+    public void buttonClicked(View button) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        OptionFragment fragment = new OptionFragment(theAdapter);
+        fragment.show(ft, "dialog");
     }
 
     private class GoButtonClickListener implements View.OnClickListener {
@@ -99,15 +107,13 @@ public class MainActivity extends AppCompatActivity {
     private class GoItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-            int textColorToSet;
             CheckBox checkBox = view.findViewById(R.id.checkBox);
             if (checkBox.isChecked()){
-                textColorToSet = Color.BLACK;
+                db.update(id);
             }
             else {
-                textColorToSet = textColor;
+                db.update(id, textColor);
             }
-            db.update(id, textColorToSet);
             updateData();
         }
     }
