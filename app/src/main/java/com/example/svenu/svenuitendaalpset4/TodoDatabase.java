@@ -90,29 +90,42 @@ public class TodoDatabase extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public void deleteSelected() {
+    public boolean deleteSelected() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "DELETE FROM " + TABLE_NAME + " WHERE " + COL3 + " = 1;";
-        db.execSQL(query);
-    }
 
-    public void copySelected() {
-        SQLiteDatabase db = this.getWritableDatabase();
+        boolean returnvalue;
         String query = "SELECT " + COL2 + " FROM " + TABLE_NAME + " WHERE " + COL3 + " = 1;";
         Cursor data = db.rawQuery(query, null);
-        String copyText = "";
-        while (data.moveToNext()) {
-            copyText = copyText + data.getString(data.getColumnIndex(TodoDatabase.COL2)) + "\n";
-        }
-        ClipboardManager myClipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
-        ClipData myClip = ClipData.newPlainText("text", copyText);
+        returnvalue = data.getCount() > 0;
 
-        try {
-            myClipboard.setPrimaryClip(myClip);
+        if (returnvalue) {
+            query = "DELETE FROM " + TABLE_NAME + " WHERE " + COL3 + " = 1;";
+            db.execSQL(query);
         }
-        catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        return returnvalue;
+    }
 
+    public boolean copySelected() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        boolean returnvalue;
+        String query = "SELECT " + COL2 + " FROM " + TABLE_NAME + " WHERE " + COL3 + " = 1;";
+        Cursor data = db.rawQuery(query, null);
+        returnvalue = data.getCount() > 0;
+        if (returnvalue) {
+            String copyText = "";
+            while (data.moveToNext()) {
+                copyText = copyText + data.getString(data.getColumnIndex(TodoDatabase.COL2)) + "\n";
+            }
+            ClipboardManager myClipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+            ClipData myClip = ClipData.newPlainText("text", copyText);
+
+            try {
+                myClipboard.setPrimaryClip(myClip);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return returnvalue;
     }
 }

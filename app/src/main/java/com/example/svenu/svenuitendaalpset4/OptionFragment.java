@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 @SuppressLint("ValidFragment")
@@ -41,17 +42,31 @@ public class OptionFragment extends DialogFragment implements View.OnClickListen
         return rootView;
     }
 
+    private void apology(String apologyString) {
+        Toast.makeText(context, apologyString, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.delete_button:
-                db.deleteSelected();
+                if (db.deleteSelected()) {
+                    Cursor cursor = db.selectAll();
+                    adapter.swapCursor(cursor);
+                    apology("Todos deleted");
+                }
+                else {
+                    apology("No todos selected");
+                }
                 getDialog().dismiss();
-                Cursor cursor = db.selectAll();
-                adapter.swapCursor(cursor);
                 break;
             case R.id.copy_button:
-                db.copySelected();
+                if (db.copySelected()) {
+                    apology("Todos copied to clipboard");
+                }
+                else {
+                    apology("No todos selected");
+                }
                 getDialog().dismiss();
                 break;
         }
