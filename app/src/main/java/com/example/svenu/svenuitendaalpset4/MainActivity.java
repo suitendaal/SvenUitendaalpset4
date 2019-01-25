@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -65,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         addButton.setBackgroundTintList(ColorStateList.valueOf(textColor));
         seekBar.setProgressTintList(ColorStateList.valueOf(textColor));
         seekBar.setThumbTintList(ColorStateList.valueOf(textColor));
+//        getWindow().setStatusBarColor(textColor);
+//        getWindow().setNavigationBarColor(textColor);
     }
 
     private void updateData() {
